@@ -5,7 +5,7 @@ then
 
 else
 
-    sudo echo "[Unit]
+    echo "[Unit]
 Description=NodeJS Simple Webserver
 
 [Service]
