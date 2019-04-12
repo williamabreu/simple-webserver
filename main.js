@@ -1,10 +1,13 @@
 const express = require('express');
-const app = express();
-const http = require('http').Server(app);
+const http    = require('http');
+
+const app     = express();
+const server  = http.Server(app);
+
 app.use(express.static('public'));
 
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 
-http.listen(80);
+server.listen(80);
