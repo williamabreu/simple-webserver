@@ -7,16 +7,21 @@ else
 
     echo "[Unit]
 Description=NodeJS Simple Webserver
+#Requires=After=mysql.service
 
 [Service]
-ExecStart=$1/main.js
-Restart=always
-User=nobody
-# Note Debian/Ubuntu uses 'nogroup', RHEL/Fedora uses 'nobody'
-Group=nogroup
-Environment=PATH=/usr/bin:/usr/local/bin
-Environment=NODE_ENV=production
+ExecStart=/usr/bin/node $1/main.js
 WorkingDirectory=$1
+Restart=always
+# Restart service after 10 seconds if node service crashes
+RestartSec=10
+# Output to syslog
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=simple-webserver
+User=root
+Group=root
+Environment=NODE_ENV=production PORT=80
 
 [Install]
 WantedBy=multi-user.target" >  /etc/systemd/system/simple-webserver.service
